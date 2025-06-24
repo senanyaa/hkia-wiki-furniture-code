@@ -61,7 +61,7 @@
       <div
         class="flex flex-col items-center grow-1 shrink basis-0 rounded-4xl bg-white/85 p-4 border gap-4"
       >
-        <h2 class="text-2xl">Dye Pouhes</h2>
+        <h2 class="text-2xl">Dye Pouches</h2>
         <div
           class="flex flex-wrap gap-4 justify-start content-start overflow-auto h-108"
         >
@@ -96,15 +96,34 @@
 </template>
 
 <script setup>
-import colorsJson from './colors'
-import materialsJson from './materials'
-import dyesJson from './dyes'
+import { ref, computed, onMounted } from 'vue'
 
-import { ref, computed } from 'vue'
+const colors = ref([])
+const materials = ref([])
+const dyes = ref([])
 
-const colors = ref(colorsJson)
-const materials = ref(materialsJson)
-const dyes = ref(dyesJson)
+onMounted(async () => {
+  // Fetch and set colors
+  const colorsResp = await fetch(
+    'https://api.sheety.co/f192c3e1901e4608b5a1ee7374f86159/hkia/colors'
+  )
+  const colorsJson = await colorsResp.json()
+  colors.value = colorsJson.colors
+
+  // Fetch and set Materials
+  const materialsResp = await fetch(
+    'https://api.sheety.co/f192c3e1901e4608b5a1ee7374f86159/hkia/materials'
+  )
+  const materialsJson = await materialsResp.json()
+  materials.value = materialsJson.materials
+
+  // Fetch and set Dye Pouches
+  const dyesResp = await fetch(
+    'https://api.sheety.co/f192c3e1901e4608b5a1ee7374f86159/hkia/dyes'
+  )
+  const dyesJson = await dyesResp.json()
+  dyes.value = dyesJson.dyes
+})
 
 const selectedColor = ref({})
 const selectedMaterials = ref([])
