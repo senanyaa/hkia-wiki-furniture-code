@@ -88,7 +88,8 @@
       class="w-2/3 flex flex-col items-center m-4 p-4 rounded-4xl border bg-white/85"
     >
       <h2 class="text-2xl mb-4">Code</h2>
-      <textarea class="bg-white w-full border font-mono min-h-40 rounded-4xl"
+      <textarea
+        class="bg-white w-full border font-mono min-h-40 rounded-4xl p-6"
         >{{ code }}
       </textarea>
     </div>
@@ -139,12 +140,10 @@ const code = computed(() => {
   })
   str = str.slice(0, -1)
 
-  return `
-  {{FurnitureColor
-  |color = ${selectedColor.value.code}
-  |item= ${str}
-  }}
-  `
+  return `{{FurnitureColor
+|color = ${selectedColor.value.code}
+|item= ${str}
+}}`
 })
 
 const handleColor = color => {
